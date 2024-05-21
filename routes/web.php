@@ -8,8 +8,29 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('pages.dashboard2');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/coba', function () {
+    return view('pages.coba');
+})->middleware(['auth', 'verified']);
+
+Route::get('/led-control', function () {
+    return view('pages.ledcontrol');
+})->middleware(['auth', 'verified']);
+
+Route::get('/sensor', function () {
+    return view('pages.sensor');
+})->middleware(['auth', 'verified']);
+
+Route::get('/user', function () {
+    return view('pages.pengguna');
+})->middleware(['auth', 'verified']);
+
+Route::get('/arkatama', function () {
+    return view('pages.arkatama');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
