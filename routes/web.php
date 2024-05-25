@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.landing');
 });
 
 Route::get('/dashboard', function () {
@@ -29,7 +29,7 @@ Route::get('/user', function () {
 
 Route::get('/arkatama', function () {
     return view('pages.arkatama');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified']);
 
 
 Route::middleware('auth')->group(function () {
