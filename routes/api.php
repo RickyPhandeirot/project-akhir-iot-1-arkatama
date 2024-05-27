@@ -6,6 +6,7 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\LedController;
 use App\Http\Controllers\LedStatusController;
+use App\Http\Controllers\Api\UserController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -31,3 +32,13 @@ Route::delete('/led/{id}', [LedController::class, 'destroy']);
 Route::get('/ledstatus', [LedStatusController::class, 'index']);
 Route::post('/ledstatus', [LedStatusController::class, 'store']);
 Route::get('/ledstatus/{id}', [LedStatusController::class, 'show']);
+
+
+// Route::get('/users', [UserController::class, 'index'])
+// Route::get('/users/{id}', [UserController::class, 'show'])
+// Route::get('/users', [UserController::class, 'store'])
+// Route::get('/users/{id}', [UserController::class, 'update'])
+// Route::get('/users/{id}', [UserController::class, 'destroy'])
+
+Route::resource('users', UserController::class)
+    ->except(['create', 'edit']);
