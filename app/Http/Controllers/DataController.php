@@ -36,11 +36,16 @@ class DataController extends Controller
         return Data::where('device_id', $id)->orderBy('created_at', 'DESC')->get();
     }
 
-    // public function web_show(string $id){
-    //     return view('device', [
-    //         "title" => "device",
-    //         "device" => Device::find($id),
-    //         "data" => Data::where('device_id', $id)->orderBy('created_at', 'DESC')->get()
-    //     ]);
-    // }
+    public function web_show(string $id){
+        $device = Device::find($id);
+
+        // Mengambil data sensor dengan paginasi
+        $data = Data::where('device_id', $id)->orderBy('created_at', 'DESC')->simplepaginate(10); // Ganti 10 dengan jumlah data per halaman yang Anda inginkan
+
+        return view('pages.datasensor', [
+            "title" => "device",
+            "device" => $device,
+            "data" => $data
+        ]);
+    }
 }

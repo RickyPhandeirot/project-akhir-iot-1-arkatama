@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\DataController;
+use App\Http\Controllers\LedController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,19 +19,36 @@ Route::get('/dashboard', function () {
             'url' => route('dashboard')
         ];
     return view('pages.dashboard2', $data);
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/led-control', function () {
-    return view('pages.ledcontrol');
-})->middleware(['auth', 'verified'])->name('led-control');
+Route::get('/led-control', [LedController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('led-control');
 
-Route::get('/sensor', function () {
-    return view('pages.sensor');
-})->middleware(['auth', 'verified'])->name('sensor');
+// Route::get('/sensor', function () {
+//     return view('pages.sensor');
+// })->middleware(['auth', 'verified'])->name('sensor');
+
+Route::get('/sensor', [DeviceController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('sensor');
 
 Route::get('/user', function () {
     return view('pages.pengguna');
 })->middleware(['auth', 'verified']);
+
+
+// Route::get('/sensor/{id}', function () {
+//     return view('pages.datasensor');
+// });
+
+Route::get('/meh', function () {
+    return view('pages.datasensor');
+});
+
+
+Route::get('/sensor/{id}', [DataController::class, 'web_show']);
 
 // route yang hanya boleh diakses jika sudah login
 Route::middleware('auth')->group(function () {

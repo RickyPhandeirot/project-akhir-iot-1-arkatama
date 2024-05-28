@@ -17,35 +17,41 @@
             <ul id="iq-sidebar-toggle" class="iq-menu">
                 {{-- <li class="iq-menu-title"><i class="ri-separator"></i><span>Main</span></li> --}}
                 <li class="
-                @if (request()->url() == route('dashboard'))
-                    active
-                @endif
+                @if (request()->url() == route('dashboard')) active @endif
                 ">
-                    <a href="{{ route('dashboard') }}" class="iq-waves-effect"><i class="ri-home-4-line"></i><span>Dashboard</span></a>
+                    <a href="{{ route('dashboard') }}" class="iq-waves-effect"><i
+                            class="ri-home-4-line"></i><span>Dashboard</span></a>
                 </li>
+
                 <li class="
-                @if (request()->url() == route('sensor'))
-                    active
-                @endif
+                @if (request()->url() == route('sensor')) active @endif
                 ">
+                    <a href="{{ route('sensor') }}" class="iq-waves-effect"><i
+                            class="ri-temp-cold-line"></i><span>Sensor</span></a>
+                </li>
+
+
+
+                {{-- <li class="{{ request()->url() == route('sensor') ? 'active' : '' }}">
                     <a href="{{ route('sensor') }}" class="iq-waves-effect"><i class="ri-temp-cold-line"></i><span>Sensor</span></a>
-                </li>
+                </li> --}}
+
+                {{-- <li class="nav-item">
+                    <a class="nav-link {{ ($title == "sensor") ? 'active' : '' }}" href="/sensor">Devices</a>
+                  </li> --}}
 
                 <li class="
-                @if (request()->url() == route('led-control'))
-                    active
-                @endif
+                @if (request()->url() == route('led-control')) active @endif
                 ">
-                    <a href="{{ route('led-control') }}" class="iq-waves-effect"><i class="ri-lightbulb-line"></i><span>LED Control</span></a>
+                    <a href="{{ route('led-control') }}" class="iq-waves-effect"><i
+                            class="ri-lightbulb-line"></i><span>LED Control</span></a>
                 </li>
 
                 <li class="
-                @if (request()->url() == route('users.index'))
-                    active
-                @endif
+                @if (request()->url() == route('users.index')) active @endif
                 ">
                     <a href="{{ route('users.index') }}" class="iq-waves-effect"><i
-                        class="ri-user-line"></i><span>Pengguna</span></a>
+                            class="ri-user-line"></i><span>Pengguna</span></a>
                 </li>
 
                 {{-- class="{{ request()->is('sensor') ? 'active' : '' }}" --}}

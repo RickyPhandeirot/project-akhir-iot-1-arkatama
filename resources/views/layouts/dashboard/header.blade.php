@@ -5,7 +5,7 @@
             <div class="top-logo">
                 <a href="index.html" class="logo">
                     <img src="images/capybaralogo4.png" class="img-fluid" alt="">
-                    <span>Sofbox</span>
+                    <span>Capy - Internet Of Things</span>
                 </a>
             </div>
         </div>
