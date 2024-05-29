@@ -35,16 +35,16 @@
                             console.log(`Device ID: ${sensorData.device_id}, X: ${x}, Y: ${y}`); // Debugging: log each point
 
                             switch (sensorData.device_id) {
-                                case 1:
+                                case "1":
                                     temperatureData.push([x, y]);
                                     break;
-                                case 2:
+                                case "2":
                                     humidityData.push([x, y]);
                                     break;
-                                case 3:
+                                case "3":
                                     gasData.push([x, y]);
                                     break;
-                                case 4:
+                                case "4":
                                     rainData.push([x, y]);
                                     break;
                             }
