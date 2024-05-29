@@ -24,6 +24,7 @@
         <div id="content-page" class="content-page">
             <div class="container-fluid">
                 @yield('content')
+                @stack('scripts')
             </div>
         </div>
     </div>

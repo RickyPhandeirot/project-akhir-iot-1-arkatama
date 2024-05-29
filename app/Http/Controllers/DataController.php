@@ -10,7 +10,7 @@ class DataController extends Controller
 {
     public function index()
     {
-        return Data::all();
+        return Data::orderBy('created_at', 'desc')->get();
     }
 
     public function store (Request $request)
