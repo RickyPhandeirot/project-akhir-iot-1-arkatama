@@ -11,14 +11,14 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script>
         let temperatureChart, humidityChart, gasChart, rainChart;
-        const baseUrl = '{{ url('/') }}';
+        const baseUrl = '{{ url('') }}';
 
         async function requestData() {
             let endpoint = `${baseUrl}/api/data`;
             let params = { limit: 10 }; // Membatasi jumlah data untuk testing
 
             try {
-                const result = await fetch(`${endpoint}?${new URLSearchParams(params)}`);
+                const result = await fetch(`${endpoint}`);
                 if (result.ok) {
                     const data = await result.json();
                     console.log('Fetched data:', data);  // Debugging: log fetched data
