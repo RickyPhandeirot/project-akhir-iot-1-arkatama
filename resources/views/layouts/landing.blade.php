@@ -155,8 +155,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h2>About Me</h2>
-                    <p class="p-heading p-large">Meat our team of specialized marketers and business developers which
-                        will help you research new products and launch them in new emerging markets</p>
+                    <p class="p-heading p-large">Hello, I'm Ricky. I'm from Sam Ratulangi University</p>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
             <div class="row">
@@ -206,9 +205,9 @@
                 </div> <!-- end of col -->
                 <div class="col-md-4">
                     <div class="footer-col middle">
-                        <h4>Important Links</h4>
-                        <ul class="list-unstyled li-space-lg">
-                            <li class="media">
+                        {{-- <h4>Important Links</h4>
+                        <ul class="list-unstyled li-space-lg"> --}}
+                            {{-- <li class="media">
                                 <i class="fas fa-square"></i>
                                 <div class="media-body">Our business partners <a class="turquoise"
                                         href="#your-link">startupguide.com</a></div>
@@ -218,8 +217,8 @@
                                 <div class="media-body">Read our <a class="turquoise"
                                         href="terms-conditions.html">Terms & Conditions</a>, <a class="turquoise"
                                         href="privacy-policy.html">Privacy Policy</a></div>
-                            </li>
-                        </ul>
+                            </li> --}}
+                        {{-- </ul> --}}
                     </div>
                 </div> <!-- end of col -->
                 <div class="col-md-4">
