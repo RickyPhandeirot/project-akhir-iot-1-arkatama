@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\DataController;
-use App\Http\Controllers\LedController;
+use App\Http\Controllers\Api\LedController;
 use App\Http\Controllers\LedStatusController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DeviceController;
