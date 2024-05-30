@@ -24,7 +24,6 @@
         <div id="content-page" class="content-page">
             <div class="container-fluid">
                 @yield('content')
-                @stack('scripts')
             </div>
         </div>
     </div>
@@ -35,6 +34,7 @@
     <!-- Footer END -->
     <!-- Optional JavaScript -->
     @include('layouts.dashboard._foot')
+    @stack('scripts')
 </body>
 
 </html>

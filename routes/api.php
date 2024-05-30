@@ -40,6 +40,12 @@ Route::get('/ledstatus/{id}', [LedStatusController::class, 'show']);
 // Route::get('/users', [UserController::class, 'store'])
 // Route::get('/users/{id}', [UserController::class, 'update'])
 // Route::get('/users/{id}', [UserController::class, 'destroy'])
+// route group name api
 
-Route::resource('users', UserController::class)
-    ->except(['create', 'edit']);
+Route::group(['as' => 'api.'], function () {
+    // resource route
+    Route::resource('users', UserController::class)
+        ->except(['create', 'edit']);
+});
+
+
