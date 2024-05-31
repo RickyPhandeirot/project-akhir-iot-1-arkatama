@@ -198,7 +198,7 @@
                                     <h5 class="mb-0 text-white line-height">Hello {{ auth()->user()->name }}</h5>
                                     <span class="text-white font-size-12">Available</span>
                                 </div>
-                                <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
+                                {{-- <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
                                     <div class="media align-items-center">
                                         <div class="rounded iq-card-icon iq-bg-primary">
                                             <i class="ri-file-user-line"></i>
@@ -208,8 +208,8 @@
                                             <p class="mb-0 font-size-12">View personal profile details.</p>
                                         </div>
                                     </div>
-                                </a>
-                                <a href="profile-edit.html" class="iq-sub-card iq-bg-primary-success-hover">
+                                </a> --}}
+                                {{-- <a href="profile-edit.html" class="iq-sub-card iq-bg-primary-success-hover">
                                     <div class="media align-items-center">
                                         <div class="rounded iq-card-icon iq-bg-success">
                                             <i class="ri-profile-line"></i>
@@ -241,7 +241,7 @@
                                             <p class="mb-0 font-size-12">Control your privacy parameters.</p>
                                         </div>
                                     </div>
-                                </a>
+                                </a> --}}
                                 <div class="d-inline-block w-100 text-center p-3">
                                     <a class="iq-bg-danger iq-sign-btn" href="{{ route('logout') }}" role="button">Sign
                                         out<i class="ri-login-box-line ml-2"></i></a>
