@@ -57,30 +57,29 @@
                             }
                         });
 
-                        if (newData) {
-                            console.log('New data found. Updating charts.');
-                            // Add data to charts
-                            addDataToChart(temperatureChart, temperatureData);
-                            addDataToChart(humidityChart, humidityData);
-                            addDataToChart(gasChart, gasData);
-                            addDataToChart(rainChart, rainData);
-                        } else {
-                            console.log('No new data found.');
-                        }
+                        console.log('New data found. Updating charts.');
+                        // Add data to charts
+                        addDataToChart(temperatureChart, temperatureData);
+                        addDataToChart(humidityChart, humidityData);
+                        addDataToChart(gasChart, gasData);
+                        addDataToChart(rainChart, rainData);
 
                         // Uncomment to periodically fetch new data
                         setTimeout(requestData, 5000);
                     } else {
-                        console.error('API response is not an array or no data received');
-                        setTimeout(requestData, 5000); // Retry after some time even if no data
+                        console.log('No new data found. Keeping last 4 data.');
+                        // Uncomment to periodically fetch new data even if no new data found
+                        setTimeout(requestData, 5000);
                     }
                 } else {
                     console.error('Failed to fetch data from API');
-                    setTimeout(requestData, 5000); // Retry after some time if failed to fetch
+                    // Uncomment to retry fetching data after some time if failed to fetch
+                    setTimeout(requestData, 5000);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
-                setTimeout(requestData, 5000); // Retry after some time if error occurs
+                // Uncomment to retry fetching data after some time if error occurs
+                setTimeout(requestData, 5000);
             }
         }
 
@@ -88,8 +87,9 @@
             // Use update instead of addPoint for batch updates
             if (data.length > 0) {
                 const existingData = chart.series[0].data.map(point => [point.x, point.y]);
-                const combinedData = [...existingData, ...data].slice(-20); // Keep only the latest 20 points
-                chart.series[0].setData(combinedData, true);
+                const combinedData = [...existingData, ...data];
+                const slicedData = combinedData.slice(-4); // Keep only the latest 4 points
+                chart.series[0].setData(slicedData, true);
             }
         }
 
