@@ -39,20 +39,21 @@
                             if (!lastTimestamp || x > lastTimestamp) {
                                 newData = true; // There is new data
                                 lastTimestamp = x; // Update the last timestamp
-                                switch (sensorData.device_id) {
-                                    case "1":
-                                        temperatureData.push([x, y]);
-                                        break;
-                                    case "2":
-                                        humidityData.push([x, y]);
-                                        break;
-                                    case "3":
-                                        gasData.push([x, y]);
-                                        break;
-                                    case "4":
-                                        rainData.push([x, y]);
-                                        break;
-                                }
+                            }
+
+                            switch (sensorData.device_id) {
+                                case "1":
+                                    temperatureData.push([x, y]);
+                                    break;
+                                case "2":
+                                    humidityData.push([x, y]);
+                                    break;
+                                case "3":
+                                    gasData.push([x, y]);
+                                    break;
+                                case "4":
+                                    rainData.push([x, y]);
+                                    break;
                             }
                         });
 
@@ -86,7 +87,9 @@
         function addDataToChart(chart, data) {
             // Use update instead of addPoint for batch updates
             if (data.length > 0) {
-                chart.series[0].setData(data, true);
+                const existingData = chart.series[0].data.map(point => [point.x, point.y]);
+                const combinedData = [...existingData, ...data].slice(-20); // Keep only the latest 20 points
+                chart.series[0].setData(combinedData, true);
             }
         }
 
