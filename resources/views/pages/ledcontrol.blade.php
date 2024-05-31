@@ -82,7 +82,7 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             const brokerUrl =
                 'wss://n69919ff.ala.asia-southeast1.emqxsl.com:8084/mqtt'; // Ubah port sesuai dengan pengaturan broker
-            const topicPrefix = 'esp32/led';
+            const topicPrefix = 'projekcapyesp32/led';
 
             const options = {
                 username: 'Mentoring',

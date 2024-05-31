@@ -20,7 +20,7 @@
     <meta property="og:type" content="article" />
 
     <!-- Website Title -->
-    <title>Final Project Internet Of Things</title>
+    <title>Capy - Internet Of Things</title>
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,600,700,700i&amp;subset=latin-ext"
@@ -32,7 +32,7 @@
     <link href="css/styles.css" rel="stylesheet">
 
     <!-- Favicon  -->
-    <link rel="icon" href="images/favicon.png">
+    <link rel="icon" href="images/capybaralogo4.png">
 </head>
 
 <body data-spy="scroll" data-target=".fixed-top">
@@ -99,17 +99,17 @@
             </ul>
             <span class="nav-item social-icons">
                 <span class="fa-stack">
-                    <a href="#your-link">
-                        <i class="fas fa-circle fa-stack-2x facebook"></i>
-                        <i class="fab fa-facebook-f fa-stack-1x"></i>
+                    <a href="https://www.linkedin.com/in/ricky-phandeirot-a34a43297/">
+                        <i class="fas fa-circle fa-stack-2x"></i>
+                        <i class="fab fa-linkedin-in fa-stack-1x"></i>
                     </a>
                 </span>
-                <span class="fa-stack">
+                {{-- <span class="fa-stack">
                     <a href="#your-link">
                         <i class="fas fa-circle fa-stack-2x twitter"></i>
                         <i class="fab fa-twitter fa-stack-1x"></i>
                     </a>
-                </span>
+                </span> --}}
             </span>
         </div>
     </nav> <!-- end of navbar -->
@@ -134,7 +134,7 @@
                     </div> <!-- end of col -->
                     <div class="col-lg-6">
                         <div class="image-container">
-                            <img class="img-fluid" src="images/header-teamwork.svg" alt="alternative">
+                            <img class="img-fluid" src="images/capybaralogo4.png" alt="alternative">
                         </div> <!-- end of image-container -->
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
@@ -170,17 +170,17 @@
                         <p class="job-title">IoT Developer</p>
                         <span class="social-icons">
                             <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x facebook"></i>
-                                    <i class="fab fa-facebook-f fa-stack-1x"></i>
+                                <a href="https://www.linkedin.com/in/ricky-phandeirot-a34a43297/">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-linkedin-in fa-stack-1x"></i>
                                 </a>
                             </span>
-                            <span class="fa-stack">
+                            {{-- <span class="fa-stack">
                                 <a href="#your-link">
                                     <i class="fas fa-circle fa-stack-2x twitter"></i>
                                     <i class="fab fa-twitter fa-stack-1x"></i>
                                 </a>
-                            </span>
+                            </span> --}}
                         </span> <!-- end of social-icons -->
                     </div> <!-- end of team-member -->
                     <!-- end of team member -->
@@ -224,7 +224,7 @@
                 <div class="col-md-4">
                     <div class="footer-col last">
                         <h4>Social Media</h4>
-                        <span class="fa-stack">
+                        {{-- <span class="fa-stack">
                             <a href="#your-link">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fab fa-facebook-f fa-stack-1x"></i>
@@ -247,9 +247,9 @@
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fab fa-instagram fa-stack-1x"></i>
                             </a>
-                        </span>
+                        </span> --}}
                         <span class="fa-stack">
-                            <a href="#your-link">
+                            <a href="https://www.linkedin.com/in/ricky-phandeirot-a34a43297/">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fab fa-linkedin-in fa-stack-1x"></i>
                             </a>
