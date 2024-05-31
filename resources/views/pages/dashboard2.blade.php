@@ -70,7 +70,7 @@
                         });
 
                         // Uncomment to periodically fetch new data
-                        // setTimeout(requestData, 5000);
+                        setTimeout(requestData, 5000);
                     } else {
                         console.error('API response is not an array');
                     }
