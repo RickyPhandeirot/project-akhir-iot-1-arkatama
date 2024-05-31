@@ -12,6 +12,7 @@
     <script>
         let temperatureChart, humidityChart, gasChart, rainChart;
         const baseUrl = '{{ url('') }}';
+        let lastTimestamp = null; // Variable to store the timestamp of the last received data
 
         async function requestData() {
             let endpoint = `${baseUrl}/api/data`;
@@ -23,7 +24,8 @@
                     const data = await result.json();
                     console.log('Fetched data:', data);  // Debugging: log fetched data
 
-                    if (Array.isArray(data)) {
+                    if (Array.isArray(data) && data.length > 0) {
+                        let newData = false;
                         let temperatureData = [],
                             humidityData = [],
                             gasData = [],
@@ -34,51 +36,57 @@
                             let y = Number(sensorData.data);
                             console.log(`Device ID: ${sensorData.device_id}, X: ${x}, Y: ${y}`); // Debugging: log each point
 
-                            switch (sensorData.device_id) {
-                                case "1":
-                                    temperatureData.push([x, y]);
-                                    break;
-                                case "2":
-                                    humidityData.push([x, y]);
-                                    break;
-                                case "3":
-                                    gasData.push([x, y]);
-                                    break;
-                                case "4":
-                                    rainData.push([x, y]);
-                                    break;
+                            if (!lastTimestamp || x > lastTimestamp) {
+                                newData = true; // There is new data
+                                lastTimestamp = x; // Update the last timestamp
+                                switch (sensorData.device_id) {
+                                    case "1":
+                                        temperatureData.push([x, y]);
+                                        break;
+                                    case "2":
+                                        humidityData.push([x, y]);
+                                        break;
+                                    case "3":
+                                        gasData.push([x, y]);
+                                        break;
+                                    case "4":
+                                        rainData.push([x, y]);
+                                        break;
+                                }
                             }
                         });
 
-                        console.log('Temperature Data:', temperatureData); // Debugging: log temperature data
-                        console.log('Humidity Data:', humidityData); // Debugging: log humidity data
-                        console.log('Gas Data:', gasData); // Debugging: log gas data
-                        console.log('Rain Data:', rainData); // Debugging: log rain data
-
-                        // Add data to charts
-                        temperatureData.forEach(point => {
-                            temperatureChart.series[0].addPoint(point, true, temperatureChart.series[0].data.length > 20);
-                        });
-                        humidityData.forEach(point => {
-                            humidityChart.series[0].addPoint(point, true, humidityChart.series[0].data.length > 20);
-                        });
-                        gasData.forEach(point => {
-                            gasChart.series[0].addPoint(point, true, gasChart.series[0].data.length > 20);
-                        });
-                        rainData.forEach(point => {
-                            rainChart.series[0].addPoint(point, true, rainChart.series[0].data.length > 20);
-                        });
+                        if (newData) {
+                            console.log('New data found. Updating charts.');
+                            // Add data to charts
+                            addDataToChart(temperatureChart, temperatureData);
+                            addDataToChart(humidityChart, humidityData);
+                            addDataToChart(gasChart, gasData);
+                            addDataToChart(rainChart, rainData);
+                        } else {
+                            console.log('No new data found.');
+                        }
 
                         // Uncomment to periodically fetch new data
                         setTimeout(requestData, 5000);
                     } else {
-                        console.error('API response is not an array');
+                        console.error('API response is not an array or no data received');
+                        setTimeout(requestData, 5000); // Retry after some time even if no data
                     }
                 } else {
                     console.error('Failed to fetch data from API');
+                    setTimeout(requestData, 5000); // Retry after some time if failed to fetch
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setTimeout(requestData, 5000); // Retry after some time if error occurs
+            }
+        }
+
+        function addDataToChart(chart, data) {
+            // Use update instead of addPoint for batch updates
+            if (data.length > 0) {
+                chart.series[0].setData(data, true);
             }
         }
 
