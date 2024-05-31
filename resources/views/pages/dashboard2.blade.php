@@ -12,7 +12,7 @@
     <script>
         let temperatureChart, humidityChart, gasChart, rainChart;
         const baseUrl = '{{ url('') }}';
-        let lastTimestamp = null; // Variable to store the timestamp of the last received data
+        let lastTimestamp = new Date(0).getTime();
 
         async function requestData() {
             let endpoint = `${baseUrl}/api/data`;
@@ -36,7 +36,7 @@
                             let y = Number(sensorData.data);
                             console.log(`Device ID: ${sensorData.device_id}, X: ${x}, Y: ${y}`); // Debugging: log each point
 
-                            if (!lastTimestamp || x > lastTimestamp) {
+                            if (x > lastTimestamp) {
                                 newData = true; // There is new data
                                 lastTimestamp = x; // Update the last timestamp
                             }
