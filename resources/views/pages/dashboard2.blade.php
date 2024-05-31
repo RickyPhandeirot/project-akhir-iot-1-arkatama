@@ -12,20 +12,20 @@
     <script>
         let temperatureChart, humidityChart, gasChart, rainChart;
         const baseUrl = '{{ url('') }}';
-        let lastTimestamp = new Date(0).getTime();
 
         async function requestData() {
             let endpoint = `${baseUrl}/api/data`;
-            let params = { limit: 4 }; // Membatasi jumlah data untuk testing
+            let params = {
+                limit: 4
+            }; // Membatasi jumlah data untuk testing
 
             try {
                 const result = await fetch(`${endpoint}`);
                 if (result.ok) {
                     const data = await result.json();
-                    console.log('Fetched data:', data);  // Debugging: log fetched data
+                    console.log('Fetched data:', data); // Debugging: log fetched data
 
-                    if (Array.isArray(data) && data.length > 0) {
-                        let newData = false;
+                    if (Array.isArray(data)) {
                         let temperatureData = [],
                             humidityData = [],
                             gasData = [],
@@ -34,12 +34,8 @@
                         data.forEach((sensorData) => {
                             let x = new Date(sensorData.created_at).getTime();
                             let y = Number(sensorData.data);
-                            console.log(`Device ID: ${sensorData.device_id}, X: ${x}, Y: ${y}`); // Debugging: log each point
-
-                            if (x > lastTimestamp) {
-                                newData = true; // There is new data
-                                lastTimestamp = x; // Update the last timestamp
-                            }
+                            console.log(
+                            `Device ID: ${sensorData.device_id}, X: ${x}, Y: ${y}`); // Debugging: log each point
 
                             switch (sensorData.device_id) {
                                 case "1":
@@ -57,50 +53,48 @@
                             }
                         });
 
-                        console.log('New data found. Updating charts.');
-                        // Add data to charts
-                        addDataToChart(temperatureChart, temperatureData);
-                        addDataToChart(humidityChart, humidityData);
-                        addDataToChart(gasChart, gasData);
-                        addDataToChart(rainChart, rainData);
+                        console.log('Temperature Data:', temperatureData); // Debugging: log temperature data
+                        console.log('Humidity Data:', humidityData); // Debugging: log humidity data
+                        console.log('Gas Data:', gasData); // Debugging: log gas data
+                        console.log('Rain Data:', rainData); // Debugging: log rain data
 
-                        // Uncomment to periodically fetch new data
-                        setTimeout(requestData, 5000);
+                        // Add data to charts
+                        temperatureData.forEach(point => {
+                            temperatureChart.series[0].addPoint(point, true, temperatureChart.series[0].data
+                                .length > 20);
+                        });
+                        humidityData.forEach(point => {
+                            humidityChart.series[0].addPoint(point, true, humidityChart.series[0].data.length >
+                                20);
+                        });
+                        gasData.forEach(point => {
+                            gasChart.series[0].addPoint(point, true, gasChart.series[0].data.length > 20);
+                        });
+                        rainData.forEach(point => {
+                            rainChart.series[0].addPoint(point, true, rainChart.series[0].data.length > 20);
+                        });
                     } else {
-                        console.log('No new data found. Keeping last 4 data.');
-                        // Uncomment to periodically fetch new data even if no new data found
-                        setTimeout(requestData, 5000);
+                        console.error('API response is not an array');
                     }
                 } else {
                     console.error('Failed to fetch data from API');
-                    // Uncomment to retry fetching data after some time if failed to fetch
-                    setTimeout(requestData, 5000);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
-                // Uncomment to retry fetching data after some time if error occurs
+            } finally {
+                // Set timeout to fetch data again after 5 seconds
                 setTimeout(requestData, 5000);
             }
         }
 
-        function addDataToChart(chart, data) {
-            // Use update instead of addPoint for batch updates
-            if (data.length > 0) {
-                const existingData = chart.series[0].data.map(point => [point.x, point.y]);
-                const combinedData = [...existingData, ...data];
-                const slicedData = combinedData.slice(-4); // Keep only the latest 4 points
-                chart.series[0].setData(slicedData, true);
-            }
-        }
-
+        // Inisialisasi grafik setelah requestData dipanggil
         window.addEventListener('load', function() {
+            requestData();
+
             temperatureChart = new Highcharts.Chart({
                 chart: {
                     renderTo: 'temperatureChart',
                     type: 'spline',
-                    events: {
-                        load: requestData
-                    }
                 },
                 title: {
                     text: 'Temperature'
@@ -128,9 +122,6 @@
                 chart: {
                     renderTo: 'humidityChart',
                     type: 'spline',
-                    events: {
-                        load: requestData
-                    }
                 },
                 title: {
                     text: 'Humidity'
@@ -158,9 +149,6 @@
                 chart: {
                     renderTo: 'gasChart',
                     type: 'spline',
-                    events: {
-                        load: requestData
-                    }
                 },
                 title: {
                     text: 'Gas'
@@ -188,9 +176,6 @@
                 chart: {
                     renderTo: 'rainChart',
                     type: 'spline',
-                    events: {
-                        load: requestData
-                    }
                 },
                 title: {
                     text: 'Rain'
