@@ -15,7 +15,7 @@
 
         async function requestData() {
             let endpoint = `${baseUrl}/api/data`;
-            let params = { limit: 10 }; // Membatasi jumlah data untuk testing
+            let params = { limit: 4 }; // Membatasi jumlah data untuk testing
 
             try {
                 const result = await fetch(`${endpoint}`);
