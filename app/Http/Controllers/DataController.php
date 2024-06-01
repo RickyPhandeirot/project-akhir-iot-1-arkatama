@@ -11,7 +11,7 @@ class DataController extends Controller
     public function index()
     {
         return Data::orderBy('created_at', 'desc')
-        ->limit(50)
+        ->limit(100)
         ->get();
     }
 
