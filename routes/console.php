@@ -9,4 +9,4 @@ use Illuminate\Console\Command;
 //     $this->comment(Inspiring::quote());
 // })->purpose('Display an inspiring quote')->hourly();
 
-// Schedule::command('check:gas-levels')->everyMinute()->sendOutputTo("laravel.log");
+Schedule::command('check:gas-levels')->everyMinute()->sendOutputTo("laravel.log");
