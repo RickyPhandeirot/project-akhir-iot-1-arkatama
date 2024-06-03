@@ -47,12 +47,14 @@
                             class="ri-lightbulb-line"></i><span>LED Control</span></a>
                 </li>
 
-                <li class="
+                @if (auth()->user()->role == 'admin')
+                    <li class="
                 @if (request()->url() == route('users.index')) active @endif
                 ">
-                    <a href="{{ route('users.index') }}" class="iq-waves-effect"><i
-                            class="ri-user-line"></i><span>Pengguna</span></a>
-                </li>
+                        <a href="{{ route('users.index') }}" class="iq-waves-effect"><i
+                                class="ri-user-2-line"></i><span>Pengguna</span></a>
+                    </li>
+                @endif
 
                 {{-- class="{{ request()->is('sensor') ? 'active' : '' }}" --}}
             </ul>
