@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Data;
 use App\Models\Device;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+
 
 class DataController extends Controller
 {
@@ -26,6 +28,22 @@ class DataController extends Controller
             $device = Device::find($request->device_id);
             $device->current_value = $request->data;
             $device->save();
+        }
+        // if ($request->device_id == 3 && $request->data > 100) { // ganti 100 dengan ambang batas gas yang Anda inginkan
+        //     $this->sendAlert($request->data);
+        // }
+        if ($request->device_id == 3 && $request->data > 100) {
+            $lastAlertTime = Cache::get('last_alert_time_device_3');
+
+            // Ambang batas waktu (dalam detik) untuk menghindari spam, misalnya 300 detik (5 menit)
+            $alertInterval = 5;
+
+            // Mengecek apakah sudah lewat dari waktu interval
+            if (is_null($lastAlertTime) || (time() - $lastAlertTime) > $alertInterval) {
+                $this->sendAlert($request->data);
+                // Memperbarui timestamp terakhir pengiriman alert
+                Cache::put('last_alert_time_device_3', time());
+            }
         }
 
         return response()->json([
@@ -49,5 +67,43 @@ class DataController extends Controller
             "device" => $device,
             "data" => $data
         ]);
+    }
+
+    private function sendAlert($gasValue)
+    {
+        $message = "Peringatan! Tingkat gas mencapai TINGKAT BERBAHAYA";
+        $this->sendWhatsAppMessage($message);
+    }
+
+    private function sendWhatsAppMessage($message)
+    {
+        $token = env('FONNTE_API_TOKEN'); // Pastikan Anda sudah menambahkan token di file .env
+        $phone = env('TARGET_PHONE_NUMBER'); // Pastikan Anda sudah menambahkan nomor telepon di file .env
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.fonnte.com/send',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+                'target' => $phone,
+                'message' => $message,
+                'countryCode' => '62', //optional
+            ),
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: ' . $token //change TOKEN to your actual token
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
     }
 }
