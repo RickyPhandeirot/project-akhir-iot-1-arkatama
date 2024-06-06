@@ -51,11 +51,12 @@ class DataController extends Controller
 
             // Mengecek apakah sudah lewat dari waktu interval
             if (is_null($lastAlertTime) || (time() - $lastAlertTime) > $alertInterval) {
-                $this->sendAlert($request->data);
+                $this->sendAlert($request->data, $request->device_id); // Mengirim nilai gas dan ID perangkat
                 // Memperbarui timestamp terakhir pengiriman alert
                 Cache::put('last_alert_time_device_3', time());
             }
         }
+
 
         return response()->json([
             "message" => "Data telah Ditambahkan."
@@ -82,15 +83,15 @@ class DataController extends Controller
         ]);
     }
 
-    private function sendAlert($gasValue)
-    {
+    private function sendAlert($gasValue, $deviceId)
+{
+    $message = "Peringatan! Tingkat gas mencapai TINGKAT BERBAHAYA $gasValue pada perangkat dengan ID $deviceId";
+    $message .= PHP_EOL;
+    $message .= PHP_EOL;
+    $message .= 'Dikirimkan pada tanggal ' . date('Y-m-d H:i:s') . ' oleh IoT With Capy';
+    $this->sendWhatsAppMessage($message);
+}
 
-        $message = "Peringatan! Tingkat gas mencapai TINGKAT BERBAHAYA";
-        $message .= PHP_EOL;
-        $message .= PHP_EOL;
-        $message .= 'Dikirimkan pada tanggal ' . date('Y-m-d H:i:s') . ' oleh IoT With Capy';
-        $this->sendWhatsAppMessage($message);
-    }
 
     private function sendWhatsAppMessage($message)
     {
