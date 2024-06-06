@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Data;
 use App\Models\Device;
+use App\Service\WhatsappNotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -24,11 +25,21 @@ class DataController extends Controller
         $data->data = $request->data;
         $data->save();
 
-        if (Device::where('id', $request->device_id)->exists()){
+        if (Device::where('id', $request->device_id)->exists()) {
             $device = Device::find($request->device_id);
             $device->current_value = $request->data;
             $device->save();
-        }
+
+            }
+            //  Tambahkan logika pengecekan di sini
+        //   $deviceId = 3;
+        //      $nilaiMaksimalSensor = 300; // contoh nilai maksimal sensor
+
+        //      if ($request->device_id == $deviceId && $request->data > $nilaiMaksimalSensor) {
+        //          // Panggil fungsi untuk mengirimkan notifikasi peringatan
+        //          WhatsappNotificationService::notifikasiKebocoranGasMassal($request->data, $deviceId);
+        //   }
+
         // if ($request->device_id == 3 && $request->data > 100) { // ganti 100 dengan ambang batas gas yang Anda inginkan
         //     $this->sendAlert($request->data);
         // }
@@ -36,7 +47,7 @@ class DataController extends Controller
             $lastAlertTime = Cache::get('last_alert_time_device_3');
 
             // Ambang batas waktu (dalam detik) untuk menghindari spam, misalnya 300 detik (5 menit)
-            $alertInterval = 5;
+            $alertInterval = 300;
 
             // Mengecek apakah sudah lewat dari waktu interval
             if (is_null($lastAlertTime) || (time() - $lastAlertTime) > $alertInterval) {
@@ -50,6 +61,8 @@ class DataController extends Controller
             "message" => "Data telah Ditambahkan."
         ], 201);
     }
+
+
 
     public function show(string $id)
     {
@@ -71,7 +84,11 @@ class DataController extends Controller
 
     private function sendAlert($gasValue)
     {
+
         $message = "Peringatan! Tingkat gas mencapai TINGKAT BERBAHAYA";
+        $message .= PHP_EOL;
+        $message .= PHP_EOL;
+        $message .= 'Dikirimkan pada tanggal ' . date('Y-m-d H:i:s') . ' oleh IoT With Capy';
         $this->sendWhatsAppMessage($message);
     }
 

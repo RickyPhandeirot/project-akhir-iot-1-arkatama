@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\LedController;
+use App\Service\WhatsappNotificationService;
 
 use Illuminate\Support\Facades\Route;
 
@@ -58,6 +59,14 @@ Route::middleware('auth')->group(function () {
 
     // Users
     Route::get('users', [UserController::class, 'index'])->name('users.index');
+
+    // Route::get('/whatsapp', function () {
+    //     $target = request('target');
+    //     $message = 'Ada kebocoran gas di rumah anda, segera cek dan perbaiki';
+    //     $response = WhatsappNotificationService::sendMessage($target, $message);
+    //     echo $response;
+    // });
+
 });
 
 

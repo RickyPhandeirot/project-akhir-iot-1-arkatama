@@ -17,6 +17,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Phone Number</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Join Date</th>
@@ -27,6 +28,13 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->name }}</td>
+                                <td>
+                                    @if ($user->phone_number == null)
+                                        <span class="badge badge-secondary">Belum diisi</span>
+                                    @else
+                                        {{ $user->phone_number }}
+                                    @endif
+                                </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @if ($user->role == 'admin')
@@ -82,6 +90,12 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="addPhoneNumber">Phone Number</label>
+                            <input required type="text" class="form-control" id="addPhoneNumber"
+                            name="phone_number">
+                        </div>
+
+                        <div class="form-group">
                             <label for="addRole">Role</label>
                             <select class="form-control" id="addRole" name="role">
                                 <option value="admin">Admin</option>
@@ -122,6 +136,12 @@
                         <div class="form-group">
                             <label for="editEmail">Email</label>
                             <input required type="email" class="form-control" id="editEmail" name="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editPhoneNumber">Phone Number</label>
+                            <input required type="text" class="form-control" id="editPhoneNumber"
+                            name="phone_number">
                         </div>
 
                         <div class="form-group">
@@ -172,6 +192,7 @@
             let data = {
                 name: $('#addName').val(),
                 email: $('#addEmail').val(),
+                phone_number: $('#addPhoneNumber').val(),
                 password: $('#addPassword').val(),
                 role: $('#addRole').val()
             }
@@ -228,6 +249,7 @@
             let data = {
                 name: $('#editName').val(),
                 email: $('#editEmail').val(),
+                phone_number: $('#editPhoneNumber').val(),
                 password: $('#editPassword').val(),
                 role: $('#editRole').val(),
                 _method: 'PUT'
@@ -325,6 +347,7 @@
                     // isi form editModal dengan data user
                     $('#editName').val(response.data.name);
                     $('#editEmail').val(response.data.email);
+                    $('#editPhoneNumber').val(response.data.phone_number);
                     $('#editRole').val(response.data.role);
 
                     // tampilkan modal editModal
