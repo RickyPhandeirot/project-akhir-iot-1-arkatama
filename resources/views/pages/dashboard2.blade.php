@@ -114,7 +114,8 @@
                 },
                 series: [{
                     name: 'Temperature',
-                    data: []
+                    data: [],
+                    color: '#FF0000'
                 }]
             });
 
@@ -141,8 +142,7 @@
                 },
                 series: [{
                     name: 'Humidity',
-                    data: [],
-                    color: '#FF0000'
+                    data: []
                 }]
             });
 
