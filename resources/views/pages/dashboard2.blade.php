@@ -141,7 +141,8 @@
                 },
                 series: [{
                     name: 'Humidity',
-                    data: []
+                    data: [],
+                    color: '#FF0000'
                 }]
             });
 
@@ -168,7 +169,8 @@
                 },
                 series: [{
                     name: 'Gas',
-                    data: []
+                    data: [],
+                    color: '#008000'
                 }]
             });
 
@@ -195,7 +197,8 @@
                 },
                 series: [{
                     name: 'Rain',
-                    data: []
+                    data: [],
+                    color: '#FFA500'
                 }]
             });
         });
