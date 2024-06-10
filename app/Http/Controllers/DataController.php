@@ -43,7 +43,7 @@ class DataController extends Controller
         // if ($request->device_id == 3 && $request->data > 100) { // ganti 100 dengan ambang batas gas yang Anda inginkan
         //     $this->sendAlert($request->data);
         // }
-        if ($request->device_id == 3 && $request->data > 300) {
+        if ($request->device_id == 3 && $request->data > 3) {
             $lastAlertTime = Cache::get('last_alert_time_device_3');
 
             // Ambang batas waktu (dalam detik) untuk menghindari spam, misalnya 300 detik (5 menit)
